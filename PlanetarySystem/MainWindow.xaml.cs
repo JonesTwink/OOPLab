@@ -53,7 +53,6 @@ namespace PlanetarySystem
                 default:
                     serializer = new JsonSerializer(filename, PluginManager);
                     break;
-
             }
             if (serializer != null)
             {
