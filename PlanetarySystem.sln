@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightJson", "LightJson\Ligh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperJson", "SuperJson\SuperJson.csproj", "{42D06BB6-06AB-4E63-9CED-CBB44FDAD033}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Decorator", "Decorator\Decorator.csproj", "{C83DF0EB-7D60-4EEC-B0DB-80147D97395A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{42D06BB6-06AB-4E63-9CED-CBB44FDAD033}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42D06BB6-06AB-4E63-9CED-CBB44FDAD033}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42D06BB6-06AB-4E63-9CED-CBB44FDAD033}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C83DF0EB-7D60-4EEC-B0DB-80147D97395A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C83DF0EB-7D60-4EEC-B0DB-80147D97395A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C83DF0EB-7D60-4EEC-B0DB-80147D97395A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C83DF0EB-7D60-4EEC-B0DB-80147D97395A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

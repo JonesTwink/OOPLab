@@ -70,7 +70,6 @@ namespace PlanetarySystem
             string ext = ".plansys";
             switch (comboBoxSerialization.Text)
             {
-
                 case "Бинарная":
                     serializer = new BinarySerializer();
                     break;
@@ -95,29 +94,31 @@ namespace PlanetarySystem
         {
             List<PluginInterface.IPlugin> PluginList = new List<PluginInterface.IPlugin>();
             PluginInterface.IPlugin plugin = null;
-            try
-            {
+           // try
+         //   {
                 foreach (var file in Directory.EnumerateFiles(dir, "*.dll", SearchOption.AllDirectories))
                 {
+                    if (file.Contains("Decorator.dll"))
+                        continue;            
                     Assembly asm = Assembly.LoadFrom(file);
 
                     foreach (Type t in asm.GetExportedTypes())
                     {
                         if (typeof(PluginInterface.IPlugin).IsAssignableFrom(t))
-                        {
+                        {                            
                             plugin = (PluginInterface.IPlugin)asm.CreateInstance(t.FullName);
                             PluginList.Add(plugin);
-                            comboBoxPlugins.Items.Add(plugin.GetType().Name);
+                            comboBoxPlugins.Items.Add(plugin.GetType().Name);                                                      
                         }
                     }
                 }
                 return PluginList;
-            }
-            catch
-            {
-                MessageBox.Show(string.Format("Проблема при санировании директории с плагинами."), "Ошибка при загрузке плагинов");
-                return null;
-            }
+            //}
+          ///  catch
+           // {
+                //MessageBox.Show(string.Format("Проблема при сканировании директории с плагинами."), "Ошибка при загрузке плагинов");
+            //    return null;
+           // }
         }
        
 
@@ -138,8 +139,6 @@ namespace PlanetarySystem
                 string filename = dialog.SafeFileName;
                
                     LoadSavedData(filename);
-               
-
             }
         }
 

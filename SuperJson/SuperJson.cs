@@ -5,11 +5,15 @@ using System.Text.RegularExpressions;
 
 namespace SuperJson
 {
-    public class SuperJson : PluginInterface.IPlugin
+    public class SuperJson : Decorator.Decorator
     {
 
+        public SuperJson()
+        {
+            regularPlugin = new RegularJson.RegularJson();
+        }
         private const string ext = "super";
-        public string extension
+        public override string extension
         {
             get
             {
@@ -17,33 +21,23 @@ namespace SuperJson
             }
         }
 
-        public string ToJson(string source)
-        {
-            string xmlData = LoadSource(source);
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(xmlData);
-
-            string JsonString = JsonConvert.SerializeXmlNode(doc, Newtonsoft.Json.Formatting.Indented);
-
-            return Transform(JsonString);
-
+        public override string ToJson(string source)
+        {  
+            string regularJsonData = base.ToJson(source);
+            string transformedJsonData = Transform(regularJsonData);
+            return transformedJsonData;
         }
 
-        public string FromJson(string source)
+        public override string FromJson(string source)
         {
-            string JsonString = Detransform(LoadSource(source));
-
-            XmlDocument doc = JsonConvert.DeserializeXmlNode(JsonString);
-            return doc.OuterXml;
-        }
-
-        private string LoadSource(string source)
-        {
-            using (Stream stream = new FileStream(source, FileMode.Open, FileAccess.Read))
+            string regularJsonData = Detransform(LoadSource(source));
+            using (Stream stream = new FileStream(Directory.GetCurrentDirectory()+"\\temp.json", FileMode.Create, FileAccess.Write))
             {
-                return (new StreamReader(stream)).ReadToEnd();
+                (new StreamWriter(stream)).Write(regularJsonData);
             }
-        }
+            
+            return base.FromJson(Directory.GetCurrentDirectory() + "\\temp.json");
+        }      
 
         private string Transform(string data)
         {
@@ -58,6 +52,13 @@ namespace SuperJson
             data = Regex.Replace(data, "(?<= )(<)(?=\".*\":)", "");
             data = Regex.Replace(data, "(?<=\".*\")(>)(?=[,\r])", "");
             return data;
+        }
+        private string LoadSource(string source)
+        {
+            using (Stream stream = new FileStream(source, FileMode.Open, FileAccess.Read))
+            {
+                return (new StreamReader(stream)).ReadToEnd();
+            }
         }
     }
 }

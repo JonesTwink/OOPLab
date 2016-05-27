@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System.Xml;
 
-namespace LightJson
+namespace RegularJson
 {
     public class RegularJson : PluginInterface.IPlugin
     {

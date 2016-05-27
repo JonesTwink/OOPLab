@@ -5,10 +5,14 @@ using System.Text.RegularExpressions;
 
 namespace LightJson
 {
-    public class LightJson : PluginInterface.IPlugin
+    public class LightJson : Decorator.Decorator
     {
         private const string ext = "light";
-        public string extension
+        public LightJson()
+        {
+            regularPlugin = new RegularJson.RegularJson();
+        }
+        public override string extension
         {
             get
             {
@@ -16,24 +20,22 @@ namespace LightJson
             }
         }
 
-        public string ToJson(string source)
-        {
-            string xmlData = LoadSource(source);
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(xmlData);
-
-            string JsonString = JsonConvert.SerializeXmlNode(doc, Newtonsoft.Json.Formatting.Indented);
-
-            return Transform(JsonString);
-
+        public override string ToJson(string source)
+        {            
+            string regularJsonData = base.ToJson(source);
+            string transformedJsonData = Transform(regularJsonData);
+            return transformedJsonData;
         }
 
-        public string FromJson(string source)
-        {
-            string JsonString = Detransform(LoadSource(source));
+        public override string FromJson(string source)
+        {            
+            string regularJsonData = Detransform(LoadSource(source));
+            using (StreamWriter file = new StreamWriter(Directory.GetCurrentDirectory() + "\\temp.json"))
+            {
+                file.Write(regularJsonData);
+            }
 
-            XmlDocument doc = JsonConvert.DeserializeXmlNode(JsonString);
-            return doc.OuterXml;
+            return base.FromJson(Directory.GetCurrentDirectory() + "\\temp.json");
         }
 
         private string LoadSource(string source)
