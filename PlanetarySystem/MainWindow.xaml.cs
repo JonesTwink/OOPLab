@@ -94,8 +94,8 @@ namespace PlanetarySystem
         {
             List<PluginInterface.IPlugin> PluginList = new List<PluginInterface.IPlugin>();
             PluginInterface.IPlugin plugin = null;
-           // try
-         //   {
+            try
+            {
                 foreach (var file in Directory.EnumerateFiles(dir, "*.dll", SearchOption.AllDirectories))
                 {
                     if (file.Contains("Decorator.dll"))
@@ -113,12 +113,12 @@ namespace PlanetarySystem
                     }
                 }
                 return PluginList;
-            //}
-          ///  catch
-           // {
-                //MessageBox.Show(string.Format("Проблема при сканировании директории с плагинами."), "Ошибка при загрузке плагинов");
-            //    return null;
-           // }
+            }
+            catch
+            {
+                MessageBox.Show(string.Format("Проблема при сканировании директории с плагинами."), "Ошибка при загрузке плагинов");
+                return null;
+            }
         }
        
 
