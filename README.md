@@ -1,5 +1,5 @@
 # PlanetarySystemLab
-<b>Тема:</b> Иерархия планетарной система.
+<b>Тема:</b> Иерархия планетарной системы.
 <br/>
 <center><img src="https://pp.vk.me/c626826/v626826960/fb5a/GiiyCOC6ubE.jpg"/></center>
 <br/>
